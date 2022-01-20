@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>ValidationUtil.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">jacoco-report</a> &gt; <a href="../index.html" class="el_bundle">test_cui</a> &gt; <a href="index.source.html" class="el_package">validation</a> &gt; <span class="el_source">ValidationUtil.java</span></div><h1>ValidationUtil.java</h1><pre class="source lang-java linenums">package validation;
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.function.Function;
+
+<span class="fc" id="L7">public class ValidationUtil {</span>
+
+    private static final String REGEXP_2 = &quot;^[0-9]*$&quot;;
+    private static final String REGEXP_3 = &quot;&amp;*^&amp;^(*(&quot;;
+    private static final String HANKAKU_KANA_LIST = &quot;ｶｷｸｹｺｻｼｽｾｿﾅﾆﾇﾈﾉ&quot;;
+
+    public static boolean mask(Function&lt;String, Boolean&gt; function, String value) {
+<span class="nc bnc" id="L14" title="All 4 branches missed.">        return function.apply(value) || matchRegexp(value, REGEXP_2);</span>
+    }
+
+    public static boolean matchRegexp(String value, String regexp) {
+<span class="nc bnc" id="L18" title="All 2 branches missed.">        if (StringUtils.isEmpty(value)) {</span>
+<span class="nc" id="L19">            return true;</span>
+        }
+<span class="nc bnc" id="L21" title="All 4 branches missed.">        if (regexp == null || regexp.length() &lt;= 0) {</span>
+<span class="nc" id="L22">            return false;</span>
+        }
+<span class="nc" id="L24">        return value.matches(regexp);</span>
+    }
+
+    protected static boolean isHankakuKana(char c) {
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        return HANKAKU_KANA_LIST.indexOf(c) &gt;= 0;</span>
+    }
+
+    protected static boolean isHankaku(char c) {
+<span class="pc bpc" id="L32" title="1 of 4 branches missed.">        return (c &lt;= '\u00ff') || isHankakuKana(c);</span>
+    }
+
+    protected static boolean zenhankakuDistinguish(Function&lt;Character, Boolean&gt; function, String value) {
+
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if (StringUtils.isEmpty(value)) {</span>
+<span class="nc" id="L38">            return true;</span>
+        }
+<span class="nc" id="L40">        char[] chars = value.toCharArray();</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        for (char c : chars) {</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">            if (!function.apply(c)) {</span>
+<span class="nc" id="L43">                return false;</span>
+            }
+        }
+<span class="nc" id="L46">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
