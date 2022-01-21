@@ -8,16 +8,6 @@ public class ValidationUtil {
 
     private static final String HANKAKU_KANA_LIST = "ｶｷ";
 
-    public static boolean matchRegexp(String value, String regexp) {
-        if (StringUtils.isEmpty(value)) {
-            return true;
-        }
-        if (regexp == null || regexp.length() <= 0) {
-            return false;
-        }
-        return value.matches(regexp);
-    }
-
     protected static boolean isHankakuKana(char c) {
         return HANKAKU_KANA_LIST.indexOf(c) >= 0;
     }
